@@ -596,7 +596,7 @@ var ESPN={
   "Botafogo":"https://a.espncdn.com/i/teamlogos/soccer/500/6086.png",
   "Botafogo (SP)":"https://a.espncdn.com/i/teamlogos/soccer/500/5990.png",
   "Vasco":"https://a.espncdn.com/i/teamlogos/soccer/500/1965.png",
-  "Fluminense":"https://a.espncdn.com/i/teamlogos/soccer/500/344.png",
+{id:"fluminense",name:"Fluminense",logo:"https://upload.wikimedia.org/wikipedia/commons/a/ad/Fluminense_FC_escudo.png",on:true}
   "Athletico PR":"https://a.espncdn.com/i/teamlogos/soccer/500/1971.png",
   "Coritiba":"https://a.espncdn.com/i/teamlogos/soccer/500/1972.png",
   "Fortaleza":"https://a.espncdn.com/i/teamlogos/soccer/500/8764.png",
@@ -640,7 +640,9 @@ function handleLogoFile(e){
   var reader=new FileReader();
   reader.onload=function(ev){
     var url=ev.target.result;
-    document.getElementById('lu-preview').innerHTML='<img src="'+url+'" style="width:80px;height:80px;object-fit:contain;border-radius:50%;background:var(--border);padding:4px">';
+    document.getElementById('lu-preview').innerHTML='<img.src = team.logo 
+  ? team.logo 
+  : `https://a.espncdn.com/i/teamlogos/soccer/500/${team.espn}.png`;
     document.getElementById('lu-preview').dataset.url=url;
   };
   reader.readAsDataURL(file);
