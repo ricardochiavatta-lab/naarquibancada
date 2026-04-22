@@ -722,13 +722,13 @@ var THEMES={
 "sao-paulo":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#ff4444;--gold2:#ff7070;--win:#ff4444;--draw:#f0f0f0;--loss:#4444ff;",title:"DENTRE OS GRANDES, ÉS O PRIMEIRO",sub:"Memórias de um Tricolor Paulista"},
 "santos":{root:"--bg:#f5f5f0;--surface:#ebebeb;--card:#ffffff;--border:#cccccc;--text:#111111;--muted:#777777;--gold:#111111;--gold2:#333333;--win:#111111;--draw:#888888;--loss:#cc2222;",title:"SOU SANTOS ATÉ MORRER",sub:"Memórias de um Santista"},
 "flamengo":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#FFFFFF;--gold2:#ff6666;--win:#FFFFFF;--draw:#f0f0f0;--loss:#333333;",title:"UMA VEZ FLAMENGO, SEMPRE FLAMENGO",sub:"Memórias de um Rubro-Negro"},
-"fluminense":{root:"--bg:#0d1f14;--surface:#122019;--card:#1a2d20;--border:#2a4030;--text:#f2f2f2;--muted:#7a9a82;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#f0f0f0;--loss:#8b1a2a;",title:"NENSE, NENSE, NESE",sub:"Memórias de um Tricolor Carioca"},
+"fluminense":{root:"--bg:#0d1f14;--surface:#122019;--card:#1a2d20;--border:#2a4030;--text:#f2f2f2;--muted:#7a9a82;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#f0f0f0;--loss:#8b1a2a;",title:"NENSE, NENSE, NENSE",sub:"Memórias de um Tricolor Carioca"},
 "botafogo":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"CONTIGO ATÉ O FIM",sub:"Memórias de um Manequim"},
 "vasco":{root:"--bg:#0a0a0a;--surface:#141414;--card:#1c1c1c;--border:#2c2c2c;--text:#f2f2f2;--muted:#6b6b6b;--gold:#f0f0f0;--gold2:#ffffff;--win:#f0f0f0;--draw:#888;--loss:#cc2222;",title:"VAMOS TODOS CANTAR DE CORAÇÃO",sub:"Memórias de um Vascaíno"},
 "atletico-mg":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"GALO FORTE VINGADOR",sub:"Memórias de um Atleticano"},
 "cruzeiro":{root:"--bg:#060c1a;--surface:#0a1225;--card:#0f1a30;--border:#1a2a4a;--text:#f2f2f2;--muted:#7a8aaa;--gold:#e8c97a;--gold2:#f5e0a0;--win:#e8c97a;--draw:#f0f0f0;--loss:#e05454;",title:"VAMOS CRUZEIRO",sub:"Memórias de um Celeste"},
 "gremio":{root:"--bg:#060c1a;--surface:#0a1020;--card:#0f1828;--border:#1a2840;--text:#f2f2f2;--muted:#7a8aaa;--gold:#4a90d9;--gold2:#6aaaf0;--win:#4a90d9;--draw:#f0f0f0;--loss:#e05454;",title:"COM O GRÊMIO, ONDE O GRÊMIO ESTIVER",sub:"Memórias de um Tricolor Gaúcho"},
-"internacional":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#FFFFFF;--gold2:#ff6666;--win:##FFFFFF;--draw:#f0f0f0;--loss:#333333;",title:"NADA VAI NOS SEPARAR",sub:"Memórias de um Colorado"}
+"internacional":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#FFFFFF;--gold2:#ff6666;--win:#FFFFFF;--draw:#f0f0f0;--loss:#333333;",title:"NADA VAI NOS SEPARAR",sub:"Memórias de um Colorado"}
 }
 
 // ── TEAM LOGOS CACHE ──
@@ -1987,7 +1987,7 @@ function applyMatchByIndex(idx){
   var f=window._foundMatches&&window._foundMatches[idx];
   if(!f) return;
   var matchData={
-    home:f.teams.home.name, away:f.teams.away.name,
+    home:normName(f.teams.home.name), away:normName(f.teams.away.name),
     gh:f._local?(f._casa?f._gp:f._gc):(f.goals.home!==null?f.goals.home:'?'),
     ga:f._local?(f._casa?f._gc:f._gp):(f.goals.away!==null?f.goals.away:'?'),
     league:f.league.name,
@@ -1999,7 +1999,8 @@ function applyMatchByIndex(idx){
 }
 
 function applyMatch(matchData){
-  var isCori_home=matchData.home.toLowerCase().includes('corinthian');
+  var _myN=(TEAMS_DATA.find(function(t){return t.id===currentTeam;})||{}).name||'Corinthians';
+  var isCori_home=matchData.home.toLowerCase().includes(_myN.toLowerCase().split(' ')[0].toLowerCase());
   var home=matchData.home, away=matchData.away;
   var gh=matchData.gh, ga=matchData.ga;
   
@@ -2082,7 +2083,7 @@ function renderLocalMatches(matches, resultsEl){
       league:{name:m.camp},
       fixture:{date:m.data,venue:{name:m.estadio||''},id:0,status:{short:'FT'}},
       _goals:m.gols||[],
-      _adversario:m.adversario,
+      _adversario:normName(m.adversario),
       _gp:m.gp,
       _gc:m.gc,
       _casa:m.casa,
@@ -2116,6 +2117,23 @@ function renderLocalMatches(matches, resultsEl){
 // ── BUSCA POR ANO + ADVERSÁRIO ──
 // openYearSearch removed - search is now inline in form
 
+
+// Normalize Football-Data team names for display
+var FD_NAMES = {
+  'SC Corinthians Paulista':'Corinthians','SE Palmeiras':'Palmeiras',
+  'São Paulo FC':'São Paulo','Santos FC':'Santos',
+  'CR Flamengo':'Flamengo','Fluminense FC':'Fluminense',
+  'Botafogo FR':'Botafogo','CR Vasco da Gama':'Vasco',
+  'CA Mineiro':'Atlético MG','Cruzeiro EC':'Cruzeiro',
+  'Grêmio FBPA':'Grêmio','SC Internacional':'Internacional',
+  'RB Bragantino':'RB Bragantino','Fortaleza EC':'Fortaleza',
+  'EC Bahia':'Bahia','CA Paranaense':'Athletico PR',
+  'Mirassol FC':'Mirassol','Ceará SC':'Ceará',
+  'SC Recife':'Sport','EC Vitória':'Vitória',
+  'AC Goianiense':'Atlético GO','Cuiabá EC':'Cuiabá',
+  'Criciúma EC':'Criciúma','EC Juventude':'Juventude'
+};
+function normName(n){return FD_NAMES[n]||n;}
 async function runYearSearch(){
   var anoEl=document.getElementById('ys-ano');
   var advEl=document.getElementById('ys-adv');
@@ -2130,7 +2148,7 @@ async function runYearSearch(){
   ysR.innerHTML='<div class="api-search-status">⏳ Buscando...</div>';
   
   var sp=getSupa(); if(!sp) return;
-  var query=sp.from('jogos_base').select('*').eq('ano', ano);
+  var query=sp.from('jogos_base').select('*').eq('ano', ano).eq('team_id', currentTeam);
   if(adv&&adv.length>=2) query=query.ilike('adversario','%'+adv+'%');
   
   var {data,error}=await query.order('data',{ascending:false});
@@ -2151,7 +2169,7 @@ async function runYearSearch(){
       league:{name:m.camp},
       fixture:{date:m.data,venue:{name:m.estadio||''},id:0,status:{short:'FT'}},
       _goals:m.gols||[],
-      _adversario:m.adversario,
+      _adversario:normName(m.adversario),
       _gp:m.gp, _gc:m.gc, _casa:m.casa, _local:true
     };
   });
@@ -2160,7 +2178,7 @@ async function runYearSearch(){
     var gols=f._goals||[];
     return '<div class="match-result-item" onclick="applyMatchByIndex('+idx+')">'
       +'<div style="flex:1">'
-      +'<div class="match-result-teams">'+esc(f.teams.home.name)+' × '+esc(f.teams.away.name)+'</div>'
+      +'<div class="match-result-teams">'+esc(normName(f.teams.home.name))+' × '+esc(normName(f.teams.away.name))+'</div>'
       +'<div class="match-result-info">'+esc(f.league.name)+' · '+esc(f.fixture.date)+'</div>'
       +(f.fixture.venue.name?'<div class="match-result-info">📍 '+esc(f.fixture.venue.name)+'</div>':'')
       +(gols.length?'<div class="match-result-info" style="color:var(--gold)">⚽ '+esc(gols.join(', '))+'</div>':'')
