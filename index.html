@@ -400,7 +400,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
 </div>
 
 <!-- SPLASH -->
-<div id="splash">
+<div id="splash" style="display:none">
   
   <div class="splash-title">VOU COM O<br>CORINTHIANS</div>
   <div class="splash-sub">Memórias de um Fiel</div>
@@ -1119,9 +1119,7 @@ function saveCompIcon(){
 }
 
 // ── APP ──
-function enterApp(){
-  // Legacy - handled by showApp() via Supabase auth
-}
+function enterApp(){showTeamSelect();}
 function switchTab(id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===id);});
   document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('active',p.id==='tab-'+id);});
