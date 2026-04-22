@@ -1990,6 +1990,7 @@ function applyMatchByIndex(idx){
     home:normName(f.teams.home.name), away:normName(f.teams.away.name),
     gh:f._local?(f._casa?f._gp:f._gc):(f.goals.home!==null?f.goals.home:'?'),
     ga:f._local?(f._casa?f._gc:f._gp):(f.goals.away!==null?f.goals.away:'?'),
+    _fromBase:f._local||false,
     league:f.league.name,
     venue:f.fixture.venue.name||'',
     goals:f._goals||[],
@@ -2008,8 +2009,14 @@ function applyMatch(matchData){
   document.getElementById('f-visitante').value=away;
   
   if(gh!=='?'&&ga!=='?'){
-    document.getElementById('f-gp').value=isCori_home?gh:ga;
-    document.getElementById('f-gc').value=isCori_home?ga:gh;
+    // Se dados vierem da jogos_base (_fromBase=true), gp/gc já estão na perspectiva do time
+    if(matchData._fromBase){
+      document.getElementById('f-gp').value=gh;
+      document.getElementById('f-gc').value=ga;
+    } else {
+      document.getElementById('f-gp').value=isCori_home?gh:ga;
+      document.getElementById('f-gc').value=isCori_home?ga:gh;
+    }
   }
   
   if(matchData.venue) document.getElementById('f-estadio').value=matchData.venue;
