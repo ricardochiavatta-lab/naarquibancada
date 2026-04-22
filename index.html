@@ -390,8 +390,8 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
   <img class="login-crest" id="login-crest" src="" alt="" style="width:80px;height:80px;object-fit:contain;display:none">
-  <div class="login-title">VOU COM O<br>CORINTHIANS</div>
-  <div class="login-sub">Memórias de um Fiel</div>
+  <div class="login-title" id="login-title">NA<br>ARQUIBANCADA</div>
+  <div class="login-sub" id="login-sub-text">Seu histórico nas arquibancadas</div>
   <button class="btn-google" id="btn-google-login" onclick="loginWithGoogle()">
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
     Entrar com Google
@@ -1003,26 +1003,6 @@ async function logout(){
   window.location.reload();
 }
 
-async function showApp(){
-  // Update user chip
-  var chip=document.getElementById('user-chip');
-  if(chip&&currentUser){
-    var av=currentUser.user_metadata&&currentUser.user_metadata.avatar_url||'';
-    var nm=currentUser.user_metadata&&currentUser.user_metadata.full_name||currentUser.email||'';
-    nm=nm.split(' ')[0];
-    chip.style.display='flex'; chip.className='user-chip';
-    chip.innerHTML=(av?'<img src="'+av+'" alt="">':'')+'<span>'+nm+'</span>'
-      +'<button class="btn-logout" onclick="logout()">Sair</button>';
-  }
-  await loadUserSettings();
-  await loadGames();
-  await loadPessoas();
-  document.getElementById('app').style.display='';
-  document.getElementById('app').classList.add('visible');
-  var splash=document.getElementById('splash');
-  if(splash) splash.classList.add('hide');
-  setTimeout(function(){renderAll();},50);
-}
 
 // ── SUPABASE DATA ──
 async function loadGames(){
