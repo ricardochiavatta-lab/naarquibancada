@@ -327,6 +327,14 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .t-badge.off{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted)}
 .t-name{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.06em;color:var(--text);transition:color .2s;line-height:1.2}
 @media(max-width:480px){.ts-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}.t-logo,.t-logo-ph{width:46px;height:46px}}
+
+/* Santos light theme overrides */
+body.theme-santos .topbar,
+body.theme-santos .tabs{background:var(--surface);border-color:var(--border)}
+body.theme-santos .tab{color:var(--muted)}
+body.theme-santos .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+body.theme-santos .tab:hover{color:var(--text)}
+body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
 </style>
 </head>
 <body>
@@ -708,7 +716,20 @@ var BUCKET='logos';
 var TEAMS_DATA=[{id:"corinthians",name:"Corinthians",on:true},{id:"palmeiras",name:"Palmeiras",on:true},{id:"sao-paulo",name:"São Paulo",on:true},{id:"santos",name:"Santos",on:true},{id:"flamengo",name:"Flamengo",on:true},{id:"fluminense",name:"Fluminense",on:true},{id:"botafogo",name:"Botafogo",on:true},{id:"vasco",name:"Vasco",on:true},{id:"atletico-mg",name:"Atlético MG",on:true},{id:"cruzeiro",name:"Cruzeiro",on:true},{id:"gremio",name:"Grêmio",on:true},{id:"internacional",name:"Internacional",on:true},{id:"bragantino",name:"RB Bragantino",on:false},{id:"fortaleza",name:"Fortaleza",on:false},{id:"bahia",name:"Bahia",on:false},{id:"atletico-pr",name:"Athletico PR",on:false},{id:"mirassol",name:"Mirassol",on:false},{id:"ceara",name:"Ceará",on:false},{id:"sport",name:"Sport",on:false},{id:"vitoria",name:"Vitória",on:false},{id:"coritiba",name:"Coritiba",on:false},{id:"chapecoense",name:"Chapecoense",on:false},{id:"remo",name:"Remo",on:false}];
 
 // ── THEMES ──
-var THEMES={"corinthians":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"VOU COM O CORINTHIANS",sub:"Memórias de um Fiel"},"palmeiras":{root:"--bg:#061a0c;--surface:#0a2010;--card:#0f2a16;--border:#1a4025;--text:#f2f2f2;--muted:#6a9a72;--gold:#e8c97a;--gold2:#f5e0a0;--win:#e8c97a;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O PALMEIRAS",sub:"Memórias de um Alviverde"},"sao-paulo":{root:"--bg:#0f0a0a;--surface:#1a0f0f;--card:#1e1212;--border:#3a2020;--text:#f2f2f2;--muted:#9a8080;--gold:#f0f0f0;--gold2:#ffffff;--win:#f0f0f0;--draw:#cc2222;--loss:#1a1aaa;",title:"VOU COM O SÃO PAULO",sub:"Memórias de um Tricolor Paulista"},"santos":{root:"--bg:#0a0a0a;--surface:#141414;--card:#1c1c1c;--border:#2c2c2c;--text:#f2f2f2;--muted:#6b6b6b;--gold:#f0f0f0;--gold2:#ffffff;--win:#f0f0f0;--draw:#888;--loss:#e05454;",title:"VOU COM O SANTOS",sub:"Memórias de um Santista"},"flamengo":{root:"--bg:#0f0808;--surface:#1a0f0f;--card:#221515;--border:#3a1a1a;--text:#f2f2f2;--muted:#9a7070;--gold:#e8c97a;--gold2:#f5e0a0;--win:#e8c97a;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O FLAMENGO",sub:"Memórias de um Rubro-Negro"},"fluminense":{root:"--bg:#0d1f14;--surface:#122019;--card:#1a2d20;--border:#2a4030;--text:#f2f2f2;--muted:#7a9a82;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#f0f0f0;--loss:#8b1a2a;",title:"VOU COM O FLUMINENSE",sub:"Memórias de um Tricolor Carioca"},"botafogo":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"VOU COM O BOTAFOGO",sub:"Memórias de um Manequim"},"vasco":{root:"--bg:#0a0a0a;--surface:#141414;--card:#1c1c1c;--border:#2c2c2c;--text:#f2f2f2;--muted:#6b6b6b;--gold:#f0f0f0;--gold2:#ffffff;--win:#f0f0f0;--draw:#888;--loss:#cc2222;",title:"VOU COM O VASCO",sub:"Memórias de um Vascaíno"},"atletico-mg":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"VOU COM O ATLÉTICO MG",sub:"Memórias de um Atleticano"},"cruzeiro":{root:"--bg:#060c1a;--surface:#0a1225;--card:#0f1a30;--border:#1a2a4a;--text:#f2f2f2;--muted:#7a8aaa;--gold:#e8c97a;--gold2:#f5e0a0;--win:#e8c97a;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O CRUZEIRO",sub:"Memórias de um Celeste"},"gremio":{root:"--bg:#060c1a;--surface:#0a1020;--card:#0f1828;--border:#1a2840;--text:#f2f2f2;--muted:#7a8aaa;--gold:#4a90d9;--gold2:#6aaaf0;--win:#4a90d9;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O GRÊMIO",sub:"Memórias de um Tricolor Gaúcho"},"internacional":{root:"--bg:#0f0808;--surface:#1a0a0a;--card:#220f0f;--border:#3a1515;--text:#f2f2f2;--muted:#9a7070;--gold:#f0f0f0;--gold2:#ffffff;--win:#e05454;--draw:#f0f0f0;--loss:#333;",title:"VOU COM O INTERNACIONAL",sub:"Memórias de um Colorado"}};
+var THEMES={
+"corinthians":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"VOU COM O CORINTHIANS",sub:"Memórias de um Fiel"},
+"palmeiras":{root:"--bg:#061a0c;--surface:#0a2010;--card:#0f2a16;--border:#1a4025;--text:#f2f2f2;--muted:#6a9a72;--gold:#e8c97a;--gold2:#f5e0a0;--win:#e8c97a;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O PALMEIRAS",sub:"Memórias de um Alviverde"},
+"sao-paulo":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#ff4444;--gold2:#ff7070;--win:#ff4444;--draw:#f0f0f0;--loss:#4444ff;",title:"VOU COM O SÃO PAULO",sub:"Memórias de um Tricolor Paulista"},
+"santos":{root:"--bg:#f5f5f0;--surface:#ebebeb;--card:#ffffff;--border:#cccccc;--text:#111111;--muted:#777777;--gold:#111111;--gold2:#333333;--win:#111111;--draw:#888888;--loss:#cc2222;",title:"VOU COM O SANTOS",sub:"Memórias de um Santista"},
+"flamengo":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#ff3333;--gold2:#ff6666;--win:#ff3333;--draw:#f0f0f0;--loss:#333333;",title:"VOU COM O FLAMENGO",sub:"Memórias de um Rubro-Negro"},
+"fluminense":{root:"--bg:#0d1f14;--surface:#122019;--card:#1a2d20;--border:#2a4030;--text:#f2f2f2;--muted:#7a9a82;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#f0f0f0;--loss:#8b1a2a;",title:"VOU COM O FLUMINENSE",sub:"Memórias de um Tricolor Carioca"},
+"botafogo":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"VOU COM O BOTAFOGO",sub:"Memórias de um Manequim"},
+"vasco":{root:"--bg:#0a0a0a;--surface:#141414;--card:#1c1c1c;--border:#2c2c2c;--text:#f2f2f2;--muted:#6b6b6b;--gold:#f0f0f0;--gold2:#ffffff;--win:#f0f0f0;--draw:#888;--loss:#cc2222;",title:"VOU COM O VASCO",sub:"Memórias de um Vascaíno"},
+"atletico-mg":{root:"--bg:#0c0c0c;--surface:#161616;--card:#1e1e1e;--border:#2e2e2e;--text:#f2f2f2;--muted:#6b6b6b;--gold:#c9a84c;--gold2:#e8c97a;--win:#c9a84c;--draw:#e8e8e8;--loss:#e05454;",title:"VOU COM O ATLÉTICO MG",sub:"Memórias de um Atleticano"},
+"cruzeiro":{root:"--bg:#060c1a;--surface:#0a1225;--card:#0f1a30;--border:#1a2a4a;--text:#f2f2f2;--muted:#7a8aaa;--gold:#e8c97a;--gold2:#f5e0a0;--win:#e8c97a;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O CRUZEIRO",sub:"Memórias de um Celeste"},
+"gremio":{root:"--bg:#060c1a;--surface:#0a1020;--card:#0f1828;--border:#1a2840;--text:#f2f2f2;--muted:#7a8aaa;--gold:#4a90d9;--gold2:#6aaaf0;--win:#4a90d9;--draw:#f0f0f0;--loss:#e05454;",title:"VOU COM O GRÊMIO",sub:"Memórias de um Tricolor Gaúcho"},
+"internacional":{root:"--bg:#1a0505;--surface:#250808;--card:#2e0d0d;--border:#501515;--text:#f2f2f2;--muted:#b07070;--gold:#ff3333;--gold2:#ff6666;--win:#ff3333;--draw:#f0f0f0;--loss:#333333;",title:"VOU COM O INTERNACIONAL",sub:"Memórias de um Colorado"}
+}
 
 // ── TEAM LOGOS CACHE ──
 var TEAM_LOGOS={};
@@ -733,6 +754,9 @@ function applyTheme(tid){
     var p=v.indexOf(':');
     root.style.setProperty(v.slice(0,p).trim(), v.slice(p+1).trim());
   });
+  // Apply team class to body for theme-specific overrides
+  document.body.className=document.body.className.replace(/theme-\S+/g,'').trim();
+  document.body.classList.add('theme-'+tid);
   // Update login screen text
   var lt=document.getElementById('login-title');
   var ls=document.getElementById('login-sub-text');
