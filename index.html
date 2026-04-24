@@ -419,6 +419,10 @@ body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
 <body>
 
 <!-- LANDING -->
+<div id="auth-loading" style="display:none;position:fixed;inset:0;z-index:99999;background:#080808;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+  <div style="width:40px;height:40px;border:3px solid #2a2a2a;border-top-color:#C9A84C;border-radius:50%;animation:spin .8s linear infinite"></div>
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;color:#555">CARREGANDO</div>
+</div>
 <div id="landing">
   <div class="land-bg"></div>
   <div class="land-grid"></div>
@@ -1075,11 +1079,16 @@ async function initSupabase(){
   if(session){
     currentUser=session.user;
     document.getElementById('login-screen').classList.add('hide');
+    var _ld3=document.getElementById('auth-loading');
+    if(_ld3) _ld3.style.display='none';
     await showApp();
     return;
   }
 
-  // No session - show login (hide landing if visible)
+  // No session - hide loading, show login
+  var _ld=document.getElementById('auth-loading');
+  if(_ld) _ld.style.display='none';
+  document.getElementById('landing').style.display='';
   document.getElementById('login-screen').classList.remove('hide');
 
   // Listen for auth changes
@@ -2383,19 +2392,23 @@ document.addEventListener('click',function(e){
 window.addEventListener('DOMContentLoaded', async function(){
   var _h=window.location.hash||'';
   var _s=window.location.search||'';
-  // Hide landing on OAuth callback
-  if(_h.includes('access_token')||_h.includes('refresh_token')||_s.includes('code=')){
-    var _l=document.getElementById('landing');
-    if(_l){_l.style.display='none';}
-  }
-  // Hide landing immediately for returning users (has saved team)
+  var _isCallback=_h.includes('access_token')||_h.includes('refresh_token')||_s.includes('code=');
+
+  // Check if returning user with saved team
+  var _hasSaved=false;
   try{
     var _saved=localStorage.getItem('naarq-team-v2');
-    if(_saved&&_saved!=='null'&&JSON.parse(_saved)){
-      var _l2=document.getElementById('landing');
-      if(_l2){_l2.style.display='none';}
-    }
+    _hasSaved=_saved&&_saved!=='null'&&JSON.parse(_saved);
   }catch(e){}
+
+  if(_isCallback||_hasSaved){
+    // Show loading screen, hide landing
+    var _land=document.getElementById('landing');
+    var _load=document.getElementById('auth-loading');
+    if(_land) _land.style.display='none';
+    if(_load) _load.style.display='flex';
+  }
+
   initSupabase();
 });
 
