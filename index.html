@@ -2421,12 +2421,27 @@ function switchFormTab(tab){
   var searchSection = document.getElementById('search-section');
   if(searchSection) searchSection.style.display = tab==='meu-time' ? '' : 'none';
 
+  // For outro jogo: show all manual fields immediately
+  if(tab==='outro-jogo'){
+    showManualFields();
+    // Clear mandante (not preset to user's team)
+    var mandEl=document.getElementById('f-mandante');
+    if(mandEl) mandEl.value='';
+  } else {
+    // For meu-time: reset manual fields to hidden (search controls visibility)
+    hideManualFields();
+    // Preset mandante to user's team
+    var myName=(TEAMS_DATA.find(function(t){return t.id===currentTeam;})||{}).name||'';
+    var mandEl2=document.getElementById('f-mandante');
+    if(mandEl2) mandEl2.value=myName;
+  }
+
   // Update gols label
   var golsLabel = document.getElementById('gols-label');
   if(golsLabel){
     if(tab==='meu-time'){
-      var myName=(TEAMS_DATA.find(function(t){return t.id===currentTeam;})||{}).name||'';
-      golsLabel.textContent=(myName?'Gols do '+myName:'Gols')+' ⚽';
+      var myName2=(TEAMS_DATA.find(function(t){return t.id===currentTeam;})||{}).name||'';
+      golsLabel.textContent=(myName2?'Gols do '+myName2:'Gols')+' ⚽';
     } else {
       golsLabel.textContent='Gols do mandante ⚽';
     }
