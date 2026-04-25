@@ -503,7 +503,6 @@ body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
   <img class="login-crest" id="login-crest" src="" alt="" style="width:80px;height:80px;object-fit:contain;display:none">
-  <img src="https://swvzomkyxrocstdsvtsk.supabase.co/storage/v1/object/public/assets/Na%20Arquibancada.png" alt="Na Arquibancada" style="height:44px;width:auto;margin-bottom:.5rem">
   <img src="https://swvzomkyxrocstdsvtsk.supabase.co/storage/v1/object/public/assets/Na%20Arquibancada.png" alt="Na Arquibancada" id="login-title" style="height:50px;width:auto;margin-bottom:.25rem">
   <div class="login-sub" id="login-sub-text">Seu histórico nas arquibancadas</div>
 
@@ -1155,10 +1154,10 @@ async function initSupabase(){
     return;
   }
 
-  // No session - hide loading, show login
+  // No session - hide loading, hide landing, show login
   var _ld=document.getElementById('auth-loading');
   if(_ld) _ld.style.display='none';
-  document.getElementById('landing').style.display='';
+  document.getElementById('landing').style.display='none';
   document.getElementById('login-screen').classList.remove('hide');
 
   // Listen for auth changes
