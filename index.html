@@ -515,20 +515,32 @@ body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
 
   <div class="login-divider"><span>ou</span></div>
 
-  <!-- Magic link form -->
-  <div id="magic-form-wrap" class="magic-form">
-    <input type="email" id="magic-email" class="magic-input" placeholder="seu@email.com" autocomplete="email">
-    <button class="btn-magic" id="btn-magic" onclick="loginWithMagicLink()">
+  <!-- OTP Step 1: Email -->
+  <div id="otp-step1" class="magic-form">
+    <input type="email" id="magic-email" class="magic-input" placeholder="seu@email.com" autocomplete="email"
+      onkeydown="if(event.key==='Enter') loginWithOTP()">
+    <button class="btn-magic" id="btn-magic" onclick="loginWithOTP()">
       ✉ Entrar com Email
     </button>
   </div>
 
-  <!-- Sent confirmation -->
-  <div id="magic-sent" class="magic-sent" style="display:none">
-    <div class="magic-sent-icon">📬</div>
-    <div class="magic-sent-title">Email enviado!</div>
-    <div class="magic-sent-text">Verifique sua caixa de entrada e clique no link para entrar.<br><br>
-    <button style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:.78rem;font-family:Barlow,sans-serif" onclick="resetMagicForm()">Tentar outro email</button></div>
+  <!-- OTP Step 2: Code -->
+  <div id="otp-step2" class="magic-form" style="display:none">
+    <div class="magic-sent" style="margin-bottom:.5rem">
+      <div class="magic-sent-icon">📬</div>
+      <div class="magic-sent-title">Código enviado!</div>
+      <div class="magic-sent-text" id="otp-email-display">Verifique seu email e digite o código de 6 dígitos.</div>
+    </div>
+    <input type="text" id="otp-code" class="magic-input" placeholder="000000" maxlength="6"
+      style="text-align:center;font-size:1.5rem;letter-spacing:.3em;font-family:'Bebas Neue',sans-serif"
+      autocomplete="one-time-code" inputmode="numeric"
+      onkeydown="if(event.key==='Enter') verifyOTP()">
+    <button class="btn-magic" id="btn-verify" onclick="verifyOTP()">
+      ✓ Confirmar código
+    </button>
+    <button style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:Barlow,sans-serif;margin-top:.25rem" onclick="resetOTPForm()">
+      ← Usar outro email
+    </button>
   </div>
 
   <p class="login-msg">Seus jogos ficam salvos na nuvem e sincronizados em qualquer dispositivo.</p>
@@ -2624,8 +2636,8 @@ function renderAll(){
 
 
 
-// ── MAGIC LINK LOGIN ──
-async function loginWithMagicLink(){
+// ── OTP EMAIL LOGIN ──
+async function loginWithOTP(){
   var email = document.getElementById('magic-email').value.trim();
   if(!email || !email.includes('@')){
     alert('Digite um email válido.');
@@ -2638,9 +2650,7 @@ async function loginWithMagicLink(){
   var sp = getSupa();
   var {error} = await sp.auth.signInWithOtp({
     email: email,
-    options: {
-      emailRedirectTo: 'https://ricardochiavatta-lab.github.io/naarquibancada/'
-    }
+    options: { shouldCreateUser: true }
   });
 
   if(error){
@@ -2648,15 +2658,46 @@ async function loginWithMagicLink(){
     btn.disabled = false;
     btn.textContent = '✉ Entrar com Email';
   } else {
-    document.getElementById('magic-form-wrap').style.display = 'none';
-    document.getElementById('magic-sent').style.display = '';
+    // Show step 2
+    document.getElementById('otp-step1').style.display = 'none';
+    document.getElementById('otp-step2').style.display = '';
+    document.getElementById('otp-email-display').textContent = 'Código enviado para ' + email;
+    setTimeout(function(){ document.getElementById('otp-code').focus(); }, 100);
   }
 }
 
-function resetMagicForm(){
-  document.getElementById('magic-form-wrap').style.display = '';
-  document.getElementById('magic-sent').style.display = 'none';
-  document.getElementById('magic-email').value = '';
+async function verifyOTP(){
+  var email = document.getElementById('magic-email').value.trim();
+  var code = document.getElementById('otp-code').value.trim();
+  if(!code || code.length < 6){
+    alert('Digite o código de 6 dígitos.');
+    return;
+  }
+  var btn = document.getElementById('btn-verify');
+  btn.disabled = true;
+  btn.textContent = '⏳ Verificando...';
+
+  var sp = getSupa();
+  var {data, error} = await sp.auth.verifyOtp({
+    email: email,
+    token: code,
+    type: 'email'
+  });
+
+  if(error){
+    alert('Código inválido ou expirado. Tente novamente.');
+    btn.disabled = false;
+    btn.textContent = '✓ Confirmar código';
+    document.getElementById('otp-code').value = '';
+    document.getElementById('otp-code').focus();
+  }
+  // If success, onAuthStateChange handles the rest
+}
+
+function resetOTPForm(){
+  document.getElementById('otp-step1').style.display = '';
+  document.getElementById('otp-step2').style.display = 'none';
+  document.getElementById('otp-code').value = '';
   var btn = document.getElementById('btn-magic');
   btn.disabled = false;
   btn.textContent = '✉ Entrar com Email';
