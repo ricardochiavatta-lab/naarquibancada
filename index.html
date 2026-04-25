@@ -458,8 +458,8 @@ body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
         <div class="land-pill-dot" style="background:#FF6B2B"></div>
         <div class="land-pill-text" style="color:#FF6B2B">Registre. Reviva. Sinta de novo.</div>
       </div>
-      <div style="margin:clamp(.5rem,1.5vh,1rem) 0;opacity:0;animation:titleReveal .9s cubic-bezier(.16,1,.3,1) .4s forwards">
-        <img src="https://swvzomkyxrocstdsvtsk.supabase.co/storage/v1/object/public/assets/Na%20Arquibancada.png" alt="Na Arquibancada" style="height:clamp(60px,12vw,110px);width:auto;filter:drop-shadow(0 4px 20px rgba(255,107,43,0.3))">
+      <div style="opacity:0;animation:titleReveal .9s cubic-bezier(.16,1,.3,1) .4s forwards;margin:clamp(1rem,3vh,2rem) 0">
+        <img src="https://swvzomkyxrocstdsvtsk.supabase.co/storage/v1/object/public/assets/Na%20Arquibancada.png" alt="Na Arquibancada" style="height:clamp(55px,10vw,100px);width:auto">
       </div>
       <p class="land-sub">Seu histórico completo como torcedor —<br>estatísticas, artilharia e memórias de cada jogo que você foi.</p>
       <div class="land-cta">
@@ -503,7 +503,8 @@ body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
   <img class="login-crest" id="login-crest" src="" alt="" style="width:80px;height:80px;object-fit:contain;display:none">
-  <div class="login-title" id="login-title">NA<br>ARQUIBANCADA</div>
+  <img src="https://swvzomkyxrocstdsvtsk.supabase.co/storage/v1/object/public/assets/Na%20Arquibancada.png" alt="Na Arquibancada" style="height:44px;width:auto;margin-bottom:.5rem">
+  <img src="https://swvzomkyxrocstdsvtsk.supabase.co/storage/v1/object/public/assets/Na%20Arquibancada.png" alt="Na Arquibancada" id="login-title" style="height:50px;width:auto;margin-bottom:.25rem">
   <div class="login-sub" id="login-sub-text">Seu histórico nas arquibancadas</div>
 
   <button class="btn-google" id="btn-google-login" onclick="loginWithGoogle()">
@@ -529,7 +530,7 @@ body.theme-santos ::-webkit-scrollbar-thumb{background:#333}
       <div class="magic-sent-title">Código enviado!</div>
       <div class="magic-sent-text" id="otp-email-display">Verifique seu email e digite o código de 6 dígitos.</div>
     </div>
-    <input type="text" id="otp-code" class="magic-input" placeholder="000000" maxlength="6"
+    <input type="text" id="otp-code" class="magic-input" placeholder="000000" maxlength="8"
       style="text-align:center;font-size:1.5rem;letter-spacing:.3em;font-family:'Bebas Neue',sans-serif"
       autocomplete="one-time-code" inputmode="numeric"
       onkeydown="if(event.key==='Enter') verifyOTP()">
